@@ -1,10 +1,7 @@
 <?php
 
 namespace App\Providers;
-<<<<<<< HEAD
-=======
 use App\Repositories\UserRepository;
->>>>>>> a7da4db (first commit)
 use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Support\ServiceProvider;
 
