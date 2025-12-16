@@ -19,6 +19,9 @@ class UserRecource extends JsonResource
             'name' => $this->name,
             'email' => $this->email,
         ];
+<<<<<<< HEAD
             parent::toArray($request);
+=======
+>>>>>>> a7da4db (first commit)
     }
 }

@@ -1,14 +1,28 @@
 <?php
 
+<<<<<<< HEAD
 namespace App\Http\Controllers;
 
+=======
+namespace App\Http\Controllers; 
+use App\Interfaces\UserRepositoryInterface;
+use App\Repositories\UserRepository;
+use App\Http\Resources\UserRecource;
+use App\Helpers\ResponseHelper;
+>>>>>>> a7da4db (first commit)
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+<<<<<<< HEAD
      private UserRepositoryInterfaces $userRepository;
 
     public function __construct(UserRepositoryInterfaces $userRepository)
+=======
+     private UserRepositoryInterface $userRepository;
+
+    public function __construct(UserRepositoryInterface $userRepository)
+>>>>>>> a7da4db (first commit)
     {
         $this->userRepository = $userRepository;
     }
