@@ -49,7 +49,7 @@ class User extends Authenticatable
         ];
     }
     //Tambah scoope search tanpa ubah repository
-    public function scopeSearch($query, $term)
+    public function scopeSearch($query, $search)
     {
         return $query->where('name', 'like', '%' . $search . '%' )
                 ->orWhere('name', 'like', '%' . $search . '%' );
