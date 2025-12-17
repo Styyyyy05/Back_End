@@ -5,6 +5,8 @@ use App\Interfaces\UserRepositoryInterface;
 use App\Repositories\UserRepository;
 use App\Http\Resources\UserRecource;
 use App\Helpers\ResponseHelper;
+use App\Http\Resources\PaginateResource;
+use App\Http\Requests\UserStoreRequest;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -50,17 +52,37 @@ class UserController extends Controller
             'search' => 'nullable|string',
             'row_per_page' => 'required|integer',
         ]);
+
         try{
             $users = $this->userRepository->getAllPaginated(
-                $request['searh'] ?? null,
+                $request['search'] ?? null,
                 $request['row_per_page'],
-                true
             );
+            return ResponseHelper::jsonResponse(true,'Data User Berhasil Diambil',
+                PaginateResource::make($users, UserRecource::class),
+                200
+            );
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false, $e->getMessage(), null, 500
+            );
+        }
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(UserStoreRequest $request)
+    {
+        $request = $request->validated();
+
+        try{
+            $user = $this->userRepository->create($request);
             return ResponseHelper::jsonResponse(
                 true,
-                 'Data User Berhasil Diambil',
-                Paginated::make($users, UserRecource::class),
-                200
+                 'User Berhasil Ditambahkan',
+                new UserRecource($user),
+                201
             );
         } catch (\Exception $e) {
             return ResponseHelper::jsonResponse(
@@ -70,14 +92,6 @@ class UserController extends Controller
                 500
             );
         }
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
     }
 
     /**

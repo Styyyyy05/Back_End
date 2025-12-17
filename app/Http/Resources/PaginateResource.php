@@ -12,7 +12,6 @@ class PaginateResource extends JsonResource
      * @param  mixed  $resource
      * @return void
      */
-
     public function __construct($resource, public $resourceClass = null)
     {
         parent::__construct($resource);
@@ -29,7 +28,6 @@ class PaginateResource extends JsonResource
      * @param  \Illuminate\Http\Request  $request
      * @return array|\Illuminate\Contracts\Support\Arrayable|\JsonSerializable
      */
-
     public function toArray($request)
     {
         return [
@@ -42,8 +40,7 @@ class PaginateResource extends JsonResource
                 'per_page' => $this->perPage(),
                 'to' => $this->lastItem(),
                 'total' => $this->total(),
-            ]
+            ],
         ];
     }
-    
 }
