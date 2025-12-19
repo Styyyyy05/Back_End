@@ -1,12 +1,13 @@
 <?php
 
 namespace App\Http\Controllers; 
-use App\Interfaces\UserRepositoryInterface;
-use App\Repositories\UserRepository;
-use App\Http\Resources\UserRecource;
+
 use App\Helpers\ResponseHelper;
-use App\Http\Resources\PaginateResource;
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
+use App\Http\Resources\PaginateResource;
+use App\Http\Resources\UserRecource;
+use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -99,15 +100,65 @@ class UserController extends Controller
      */
     public function show(string $id)
     {
-        //
+        try{
+            $user = $this->userRepository->getById($id);
+
+            if (!$user) {
+                return ResponseHelper::jsonResponse(
+                    false,
+                    'User Tidak Ditemukan',
+                    null,
+                    404);
+            }
+            return ResponseHelper::jsonResponse(
+                true,
+                 'Data User Berhasil Diambil',
+                new UserRecource($user),
+                200);
+                
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                null,
+                $e->getMessage(),
+                500
+            );
+        }
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UserUpdateRequest $request, string $id)
     {
-        //
+        $request = $request->validated();
+
+        try{
+            $user = $this->userRepository->getById($id);
+            if (!$user) {
+                return ResponseHelper::jsonResponse(
+                    false,
+                    'User Tidak Ditemukan',
+                    null,
+                    404);
+            }
+            $user = $this->userRepository->update($id, $request);
+
+            return ResponseHelper::jsonResponse(
+                true,
+                 'Data User Berhasil Diupdate',
+                new UserRecource($user),
+                200);
+                
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                null,
+                $e->getMessage(),
+                500
+            );
+        }
     }
 
         /**
@@ -115,6 +166,30 @@ class UserController extends Controller
          */
         public function destroy(string $id)
         {
-            //
+            try{
+            $user = $this->userRepository->getById($id);
+            if (!$user) {
+                return ResponseHelper::jsonResponse(
+                    false,
+                    'User Tidak Ditemukan',
+                    null,
+                    404);
+            }
+            $user = $this->userRepository->delete($id);
+
+            return ResponseHelper::jsonResponse(
+                true,
+                 'Data User Berhasil Dihapus',
+                new UserRecource($user),
+                200);
+                
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(
+                false,
+                null,
+                $e->getMessage(),
+                500
+            );
+        }
         }
     }
