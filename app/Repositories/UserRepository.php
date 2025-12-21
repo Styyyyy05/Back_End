@@ -101,7 +101,6 @@ class UserRepository implements UserRepositoryInterface
 
         try{
             $user = User::find($id);
-           
             $user->delete();
 
             DB::commit();
@@ -111,6 +110,7 @@ class UserRepository implements UserRepositoryInterface
             DB::rollBack();
 
             throw new Exception($e->getMessage());
+            // Menggunakan SoftDelete jadi data tidak hilang dari database
         }
     }
 }
