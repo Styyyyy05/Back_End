@@ -29,7 +29,5 @@ interface HeadOfFamilyRepositoryInterface
         array $data
     );
 
-    public function delete(
-        string $id
-    );
+    
 }
