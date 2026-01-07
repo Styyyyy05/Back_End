@@ -2,9 +2,11 @@
 
 namespace App\Http\Requests;
 
+use App\Models\HeadOfFamily;
+use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 
-class HeadOfFamilyStoreRequest extends FormRequest
+class HeadOfFamilyUpdateRequest extends FormRequest
 {
     /**
      * Get the validation rules that apply to the request.
@@ -15,9 +17,9 @@ class HeadOfFamilyStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:8',
-            'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'email' => 'nullable|string|email|max:255|unique:users,email,' . HeadOfFamily::find($this->route('head_of_family'))->user_id,
+            'password' => 'nullable|string|min:8',
+            'profile_picture' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'identity_number' => 'required|integer',
             'gender' => 'required|string|in:male,female',
             'date_of_birth' => 'required|date',
@@ -39,26 +41,6 @@ class HeadOfFamilyStoreRequest extends FormRequest
             'phone_number' => 'Nomor Telepon',
             'occupation' => 'Pekerjaan',
             'marital_status' => 'Status Perkawinan',
-        ];
-    }
-
-    public function messages()
-    {
-        return [
-            'required' => ':attribute harus diisi',
-            'string' => ':attribute harus berupa teks',
-            'max' => ':attribute maksimal :max karakter',
-            'unique' => ':attribute sudah digunakan',
-            'image' => ':attribute harus berupa gambar',
-            'email' => ':attribute harus berupa email',
-            'min' => ':attribute minimal :min karakter',
-            'exists' => ':attribute tidak ditemukan',
-            'integer' => ':attribute harus berupa angka',
-            'array' => ':attribute harus berupa array',
-            'mimes' => ':attribute harus berupa gambar',
-            'max:2048' => ':attribute maksimal 2048 KB',
-            'unique:users' => ':attribute sudah ada',
-            'in' => ':attribute harus berupa salah satu dari :values',
         ];
     }
 }
