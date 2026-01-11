@@ -2,17 +2,20 @@
 
 namespace App\Models;
 
+use App\Traits\UUID;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class ProfileImage extends Model
 {
     use SoftDeletes, UUID;
+
     protected $fillable = [
         'profile_id',
-        'image',
+        'image'
     ];
 
-public function profile()
+    public function profile()
     {
         return $this->belongsTo(Profile::class);
     }

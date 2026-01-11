@@ -8,8 +8,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class HeadOfFamily extends Model
 {
-    use softDeletes, UUID;
-    protected $fillabel = [
+    use SoftDeletes, UUID;
+
+    protected $fillable = [
         'user_id',
         'profile_picture',
         'identity_number',
@@ -17,7 +18,7 @@ class HeadOfFamily extends Model
         'date_of_birth',
         'phone_number',
         'occupation',
-        'marital_status',
+        'marital_status'
     ];
 
     public function scopeSearch($query, $search)
@@ -33,16 +34,19 @@ class HeadOfFamily extends Model
     {
         return $this->belongsTo(User::class);
     }
+
     public function familyMembers()
     {
-    return $this->hasMany(FamilyMember::class);
-    }   
+        return $this->hasMany(FamilyMember::class);
+    }
+
     public function socialAssistanceRecipients()
     {
-    return $this->hasMany(SocialAssistanceRecipient::class);
+        return $this->hasMany(SocialAssistanceRecipient::class);
     }
+
     public function eventParticipants()
     {
-    return $this->hasMany(EventParticipant::class);
+        return $this->hasMany(EventParticipant::class);
     }
 }

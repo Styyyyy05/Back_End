@@ -2,22 +2,26 @@
 
 namespace App\Models;
 
+use App\Traits\UUID;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Profile extends Model
 {
-    use SoftDeletes, UUID;
+    use HasFactory, SoftDeletes, UUID;
+
     protected $fillable = [
         'thumbnail',
         'name',
         'about',
         'headman',
         'people',
-        'argicultural_area',
-        'total_area',
+        'agricultural_area',
+        'total_area'
     ];
 
-    public function images()
+    public function profileImages()
     {
         return $this->hasMany(ProfileImage::class);
     }

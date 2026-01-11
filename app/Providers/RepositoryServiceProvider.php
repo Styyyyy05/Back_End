@@ -2,12 +2,30 @@
 
 namespace App\Providers;
 
-use App\Repositories\UserRepository;
-use App\Interfaces\UserRepositoryInterface;
-use App\Interfaces\HeadOfFamilyRepositoryInterface;
-use App\Repositories\HeadOfFamilyRepository;
+use App\Interfaces\AuthRepositoryInterface;
+use App\Interfaces\DashboardRepositoryInterface;
+use App\Interfaces\DevelopmentApplicantRepositoryInterface;
+use App\Interfaces\DevelopmentRepositoryInterface;
+use App\Interfaces\EventParticipantRepositoryInterface;
+use App\Interfaces\EventRepositoryInterface;
 use App\Interfaces\FamilyMemberRepositoryInterface;
+use App\Interfaces\HeadOfFamilyRepositoryInterface;
+use App\Interfaces\ProfileRepositoryInterface;
+use App\Interfaces\SocialAssistanceRecipientRepositoryInterface;
+use App\Interfaces\SocialAssistanceRepositoryInterface;
+use App\Interfaces\UserRepositoryInterface;
+use App\Repositories\AuthRepository;
+use App\Repositories\DashboardRepository;
+use App\Repositories\DevelopmentApplicantRepository;
+use App\Repositories\DevelopmentRepository;
+use App\Repositories\EventParticipantRepository;
+use App\Repositories\EventRepository;
 use App\Repositories\FamilyMemberRepository;
+use App\Repositories\HeadOfFamilyRepository;
+use App\Repositories\ProfileRepository;
+use App\Repositories\SocialAssistanceRecipientRepository;
+use App\Repositories\SocialAssistanceRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -20,6 +38,7 @@ class RepositoryServiceProvider extends ServiceProvider
        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
        $this->app->bind(HeadOfFamilyRepositoryInterface::class, HeadOfFamilyRepository::class);
        $this->app->bind(FamilyMemberRepositoryInterface::class, FamilyMemberRepository::class);
+       $this->app->bind(SocialAssistanceRepositoryInterface::class, SocialAssistanceRepository::class);
     }
 
     /**

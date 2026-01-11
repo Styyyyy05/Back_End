@@ -2,11 +2,15 @@
 
 namespace App\Models;
 
+use App\Traits\UUID;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Developments extends Model
+class Development extends Model
 {
-    use softDeletes, UUID;
+    use HasFactory, SoftDeletes, UUID;
+
     protected $fillable = [
         'thumbnail',
         'name',
@@ -15,11 +19,20 @@ class Developments extends Model
         'start_date',
         'end_date',
         'amount',
-        'status',
+        'status'
     ];
+
+    protected $casts = [
+        'amount' => 'decimal:2'
+    ];
+
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('name', 'like', '%' . $search . '%');
+    }
 
     public function developmentApplicants()
     {
-        return $this->hasMany(DevelopmenApplicant::class);
+        return $this->hasMany(DevelopmentApplicant::class);
     }
 }

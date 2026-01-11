@@ -50,26 +50,25 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
-    //Tambah scoope search tanpa ubah repository
+
     public function scopeSearch($query, $search)
     {
-        return $query->where('name', 'like', '%' . $search . '%' )
-                ->orWhere('name', 'like', '%' . $search . '%' );
-        
+        return $query->where('name', 'like', '%' . $search . '%')
+            ->orWhere('email', 'like', '%' . $search . '%');
     }
 
-    public function HeadOfFamily()
+    public function headOfFamily()
     {
         return $this->hasOne(HeadOfFamily::class);
     }
-    
-    public function FamilyMember()
+
+    public function familyMember()
     {
         return $this->hasOne(FamilyMember::class);
     }
 
-    public function developmenApplicants()
+    public function developmentApplicants()
     {
-        return $this->hasMany(DevelopmenApplicant::class);
+        return $this->hasMany(DevelopmentApplicant::class);
     }
 }
