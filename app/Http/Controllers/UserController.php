@@ -6,7 +6,7 @@ use App\Helpers\ResponseHelper;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Resources\PaginateResource;
-use App\Http\Resources\UserRecource;
+use App\Http\Resources\UserResource;
 use App\Interfaces\UserRepositoryInterface;
 use Illuminate\Http\Request;
 
@@ -33,7 +33,7 @@ class UserController extends Controller
             return ResponseHelper::jsonResponse(
                 true,
                  'Data User Berhasil Diambil',
-                UserRecource::collection($users),
+                UserResource::collection($users),
                 200
             );
         } catch (\Exception $e) {
@@ -60,7 +60,7 @@ class UserController extends Controller
                 $request['row_per_page'],
             );
             return ResponseHelper::jsonResponse(true,'Data User Berhasil Diambil',
-                PaginateResource::make($users, UserRecource::class),
+                PaginateResource::make($users, UserResource::class),
                 200
             );
         } catch (\Exception $e) {
@@ -82,7 +82,7 @@ class UserController extends Controller
             return ResponseHelper::jsonResponse(
                 true,
                  'User Berhasil Ditambahkan',
-                new UserRecource($user),
+                new UserResource($user),
                 201
             );
         } catch (\Exception $e) {
@@ -113,7 +113,7 @@ class UserController extends Controller
             return ResponseHelper::jsonResponse(
                 true,
                  'Data User Berhasil Diambil',
-                new UserRecource($user),
+                new UserResource($user),
                 200);
                 
         } catch (\Exception $e) {
@@ -148,7 +148,7 @@ class UserController extends Controller
             return ResponseHelper::jsonResponse(
                 true,
                  'Data User Berhasil Diupdate',
-                new UserRecource($user),
+                new UserResource($user),
                 200);
                 
         } catch (\Exception $e) {
@@ -180,7 +180,7 @@ class UserController extends Controller
             return ResponseHelper::jsonResponse(
                 true,
                  'Data User Berhasil Dihapus',
-                new UserRecource($user),
+                new UserResource($user),
                 200);
                 
         } catch (\Exception $e) {

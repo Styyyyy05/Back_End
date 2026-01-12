@@ -17,6 +17,10 @@ class SocialAssistanceController extends Controller
 {
     private SocialAssistanceRepositoryInterface $socialAssistanceRepository;
 
+    public function __construct(SocialAssistanceRepositoryInterface $socialAssistanceRepository)
+    {
+        $this->socialAssistanceRepository = $socialAssistanceRepository;
+    }
     /**
      * Display a listing of the resource.
      */

@@ -21,13 +21,13 @@ return new class extends Migration
             $table->foreign('head_of_family_id')->references('id')->on('head_of_families');
 
             $table->decimal('amount', 10, 2);
-            $table->longtext('reason');
+            $table->longText('reason');
             $table->enum('bank', ['bri', 'bni', 'bca', 'mandiri']);
-            $table->integer('account_number');
-            $table->string('proof');
+            $table->bigInteger('account_number');
+            $table->string('proof')->nullable();
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
 
-            $table->SoftDeletes();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
