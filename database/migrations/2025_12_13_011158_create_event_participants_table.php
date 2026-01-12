@@ -10,19 +10,20 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-{
+    {
         Schema::create('event_participants', function (Blueprint $table) {
             $table->uuid('id')->primary();
-            
+
             $table->uuid('event_id');
             $table->foreign('event_id')->references('id')->on('events');
-           
+
             $table->uuid('head_of_family_id');
-            $table->foreign('head_of_family_id')->references ('id')->on('head_of_families');
-           
+            $table->foreign('head_of_family_id')->references('id')->on('head_of_families');
+
             $table->integer('quantity');
             $table->decimal('total_price', 10, 2);
             $table->string('payment_status');
+
             $table->softDeletes();
             $table->timestamps();
         });
