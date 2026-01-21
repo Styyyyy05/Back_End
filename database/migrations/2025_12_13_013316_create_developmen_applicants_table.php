@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('developmen_applicants', function (Blueprint $table) {
-            $table->uuid()->primary();
-        
+        Schema::create('development_applicants', function (Blueprint $table) {
+            $table->uuid('id')->primary();
 
             $table->uuid('development_id');
             $table->foreign('development_id')->references('id')->on('developments');
@@ -22,7 +21,6 @@ return new class extends Migration
             $table->foreign('user_id')->references('id')->on('users');
 
             $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
-
             $table->softDeletes();
             $table->timestamps();
         });
@@ -33,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('developmen_applicants');
+        Schema::dropIfExists('development_applicants');
     }
 };
