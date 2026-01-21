@@ -45,9 +45,9 @@ use Illuminate\Support\Facades\Route;
     Route::apiResource('development-applicant', DevelopmentApplicantController::class);
     Route::get('development-applicant/all/paginated', [DevelopmentApplicantController::class, 'getAllPaginated']);
 
-    //Route::get('profile', [ProfileController::class, 'index']);
-    //Route::post('profile', [ProfileController::class, 'store']);
-    //Route::put('profile', [ProfileController::class, 'update']);
+    Route::get('profile', [ProfileController::class, 'index']);
+    Route::post('profile', [ProfileController::class, 'store']);
+    Route::put('profile', [ProfileController::class, 'update']);
 //});
 
 //Route::post('/login', [AuthController::class, 'login'])->name('login');
