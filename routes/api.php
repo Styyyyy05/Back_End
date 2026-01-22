@@ -15,7 +15,7 @@ use App\Http\Controllers\SocialAssistanceRecipientController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-//Route::middleware('auth:sanctum')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
     //Route::get('dashboard/get-dashboard-data', [DashboardController::class, 'getDashboardData']);
 
     Route::apiResource('user', UserController::class);
@@ -48,11 +48,11 @@ use Illuminate\Support\Facades\Route;
     Route::get('profile', [ProfileController::class, 'index']);
     Route::post('profile', [ProfileController::class, 'store']);
     Route::put('profile', [ProfileController::class, 'update']);
-//});
+});
 
-//Route::post('/login', [AuthController::class, 'login'])->name('login');
-//Route::post('/register', [AuthController::class, 'register'])->name('register');
-//Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');
-//Route::middleware('auth:sanctum')->get('/me', [AuthController::class, 'me'])->name('me');
+Route::post('/login', [AuthController::class, 'login'])->name('login');
+Route::post('/register', [AuthController::class, 'register'])->name('register');
+Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');
+Route::middleware('auth:sanctum')->get('/me', [AuthController::class, 'me'])->name('me');
 
 //Route::post('/midtrans-callback', [MidtransController::class, 'callback']);

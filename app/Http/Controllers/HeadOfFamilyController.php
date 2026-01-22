@@ -14,7 +14,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class HeadOfFamilyController extends Controller
+class HeadOfFamilyController extends Controller implements HasMiddleware
 {
     private HeadOfFamilyRepositoryInterface $headOfFamilyRepository;
 
@@ -23,7 +23,15 @@ class HeadOfFamilyController extends Controller
         $this->headOfFamilyRepository = $headOfFamilyRepository;
     }
 
-   
+    public static function middleware()
+    {
+        return [
+            new Middleware(PermissionMiddleware::using(['head-of-family-list|head-of-family-create|head-of-family-edit|head-of-family-delete']), only: ['index', 'getAllPaginated', 'show']),
+            new Middleware(PermissionMiddleware::using(['head-of-family-create']), only: ['store']),
+            new Middleware(PermissionMiddleware::using(['head-of-family-edit']), only: ['update']),
+            new Middleware(PermissionMiddleware::using(['head-of-family-delete']), only: ['destroy']),
+        ];
+    }
 
     /**
      * Display a listing of the resource.

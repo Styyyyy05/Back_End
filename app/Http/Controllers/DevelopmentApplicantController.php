@@ -13,7 +13,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class DevelopmentApplicantController extends Controller //implements HasMiddleware
+class DevelopmentApplicantController extends Controller implements HasMiddleware
 {
     private DevelopmentApplicantRepositoryInterface $developmentApplicantRepository;
 
@@ -22,15 +22,15 @@ class DevelopmentApplicantController extends Controller //implements HasMiddlewa
         $this->developmentApplicantRepository = $developmentApplicantRepository;
     }
 
-    //public static function middleware()
-    //{
-    //    return [
-    //        new Middleware(PermissionMiddleware::using(['development-applicant-list|development-applicant-create|development-applicant-edit|development-applicant-delete']), only: ['index', 'getAllPaginated', 'show']),
-    //        new Middleware(PermissionMiddleware::using(['development-applicant-create']), only: ['store']),
-    //        new Middleware(PermissionMiddleware::using(['development-applicant-edit']), only: ['update']),
-    //        new Middleware(PermissionMiddleware::using(['development-applicant-delete']), only: ['destroy']),
-    //    ];
-    //}
+    public static function middleware()
+    {
+        return [
+            new Middleware(PermissionMiddleware::using(['development-applicant-list|development-applicant-create|development-applicant-edit|development-applicant-delete']), only: ['index', 'getAllPaginated', 'show']),
+            new Middleware(PermissionMiddleware::using(['development-applicant-create']), only: ['store']),
+            new Middleware(PermissionMiddleware::using(['development-applicant-edit']), only: ['update']),
+            new Middleware(PermissionMiddleware::using(['development-applicant-delete']), only: ['destroy']),
+        ];
+    }
 
 
     /**

@@ -13,7 +13,7 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Spatie\Permission\Middleware\PermissionMiddleware;
 
-class EventController extends Controller //implements HasMiddleware
+class EventController extends Controller implements HasMiddleware
 {
     private EventRepositoryInterface $eventRepository;
 
@@ -22,15 +22,15 @@ class EventController extends Controller //implements HasMiddleware
         $this->eventRepository = $eventRepository;
     }
 
-    //public static function middleware()
-    //{
-        //return [
-            //new Middleware(PermissionMiddleware::using(['event-list|event-create|event-edit|event-delete']), only: ['index', 'getAllPaginated', 'show']),
-            //new Middleware(PermissionMiddleware::using(['event-create']), only: ['store']),
-            //new Middleware(PermissionMiddleware::using(['event-edit']), only: ['update']),
-            //new Middleware(PermissionMiddleware::using(['event-delete']), only: ['destroy']),
-        //];
-    //}
+    public static function middleware()
+    {
+        return [
+            new Middleware(PermissionMiddleware::using(['event-list|event-create|event-edit|event-delete']), only: ['index', 'getAllPaginated', 'show']),
+            new Middleware(PermissionMiddleware::using(['event-create']), only: ['store']),
+            new Middleware(PermissionMiddleware::using(['event-edit']), only: ['update']),
+            new Middleware(PermissionMiddleware::using(['event-delete']), only: ['destroy']),
+        ];
+    }
 
     /**
      * Display a listing of the resource.
