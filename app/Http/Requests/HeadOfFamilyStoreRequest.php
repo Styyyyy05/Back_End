@@ -15,7 +15,7 @@ class HeadOfFamilyStoreRequest extends FormRequest
     {
         return [
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => ['required','email',Rule::unique('users')->whereNull('deleted_at'),],
             'password' => 'required|string|min:8',
             'profile_picture' => 'required|image|mimes:jpeg,png,jpg|max:2048',
             'identity_number' => 'required|integer',
