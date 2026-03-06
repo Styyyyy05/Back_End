@@ -128,13 +128,17 @@ class HeadOfFamilyRepository implements HeadOfFamilyRepositoryInterface
         }
     }
 
-    public function delete(
+   public function delete(
         string $id
     ) {
         DB::beginTransaction();
 
         try {
             $headOfFamily = HeadOfFamily::find($id);
+            $user = $headOfFamily->user;
+            $user->email = $user->email . 'deleted' . now()->timestamp;
+            $user->save();
+            $user->delete();
             $headOfFamily->delete();
 
             DB::commit();
