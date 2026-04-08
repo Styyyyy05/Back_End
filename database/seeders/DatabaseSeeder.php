@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             HeadOfFamilySeeder::class,
             SocialAssistanceSeeder::class,
+            SocialAssistanceRecipientSeeder::class,
             EventSeeder::class,
             EventParticipantSeeder::class,
             DevelopmentSeeder::class,
