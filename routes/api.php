@@ -55,4 +55,4 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 Route::middleware('auth:sanctum')->post('/logout', [AuthController::class, 'logout'])->name('logout');
 Route::middleware('auth:sanctum')->get('/me', [AuthController::class, 'me'])->name('me');
 
-//Route::post('/midtrans-callback', [MidtransController::class, 'callback']);
+Route::post('/midtrans-callback', [MidtransController::class, 'callback']);

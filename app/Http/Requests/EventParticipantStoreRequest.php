@@ -30,12 +30,12 @@ class EventParticipantStoreRequest extends FormRequest
         ];
     }
 
-    //public function prepareForValidation()
-    //{
-       // $user = Auth::user();
+    public function prepareForValidation()
+    {
+        $user = Auth::user();
 
-       // if ($user->hasRole('head-of-family')) {
-       //     $this->merge(['head_of_family_id' => $user->headOfFamily->id]);
-       // }
-    //}
+        if ($user->hasRole('head-of-family')) {
+            $this->merge(['head_of_family_id' => $user->headOfFamily->id]);
+        }
+    }
 }

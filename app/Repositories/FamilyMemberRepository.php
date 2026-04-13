@@ -20,7 +20,10 @@ class FamilyMemberRepository implements FamilyMemberRepositoryInterface
             }
         });
 
-        
+        if (auth()->user()->hasRole('head-of-family')) {
+            $query->where('head_of_family_id', auth()->user()->headOfFamily->id);
+        }
+
         if ($limit) {
             $query->take($limit);
         }
@@ -137,6 +140,10 @@ class FamilyMemberRepository implements FamilyMemberRepositoryInterface
 
         try {
             $familyMember = FamilyMember::find($id);
+            $user = $familyMember->user;
+            $user->email = $user->email . 'deleted' . now()->timestamp;
+            $user->save();
+            $user->delete();
             $familyMember->delete();
 
             DB::commit();

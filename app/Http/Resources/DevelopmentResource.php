@@ -25,9 +25,9 @@ class DevelopmentResource extends JsonResource
             'end_date' => $this->end_date,
             'amount' => (float)(string)$this->amount,
             'status' => $this->status,
-            //'is_applied' => auth()->user()->hasRole('head_of_family') && $this->developmentApplicants()->whereHas('user', function ($query) {
-            //    $query->where('id', auth()->user()->id);
-            //})->exists(),
+            'is_applied' => auth()->user()->hasRole('head_of_family') && $this->developmentApplicants()->whereHas('user', function ($query) {
+                $query->where('id', auth()->user()->id);
+            })->exists(),
             'development_applicants' => $this->whenLoaded('developmentApplicants', function () {
                 return DevelopmentApplicantResource::collection($this->developmentApplicants->sortByDesc('created_at'));
             }),

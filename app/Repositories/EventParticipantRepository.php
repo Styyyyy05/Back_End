@@ -23,9 +23,9 @@ class EventParticipantRepository implements EventParticipantRepositoryInterface
 
         $query->orderBy('created_at', 'desc');
 
-        //if (auth()->user()->hasRole('head-of-family')) {
-        //    $query->where('head_of_family_id', auth()->user()->headOfFamily->id);
-        //}
+        if (auth()->user()->hasRole('head-of-family')) {
+            $query->where('head_of_family_id', auth()->user()->headOfFamily->id);
+        }
 
         if ($limit) {
             $query->take($limit);
@@ -77,27 +77,27 @@ class EventParticipantRepository implements EventParticipantRepositoryInterface
             DB::commit();
 
             // Set your Merchant Server Key
-          //  \Midtrans\Config::$serverKey = config('midtrans.serverKey');
+            \Midtrans\Config::$serverKey = config('midtrans.serverKey');
             // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
-           // \Midtrans\Config::$isProduction = config('midtrans.isProduction');
+            \Midtrans\Config::$isProduction = config('midtrans.isProduction');
             // Set sanitization on (default)
-            //\Midtrans\Config::$isSanitized = config('midtrans.isSanitized');
+            \Midtrans\Config::$isSanitized = config('midtrans.isSanitized');
             // Set 3DS transaction for credit card to true
-           // \Midtrans\Config::$is3ds = config('midtrans.is3ds');
+            \Midtrans\Config::$is3ds = config('midtrans.is3ds');
 
-           // $params = array(
-           //     'transaction_details' => array(
-           //         'order_id' => $eventParticipant->id,
-           //         'gross_amount' => $eventParticipant->total_price,
-           //     ),
-           //     'customer_details' => array(
-           //         'first_name' => auth()->user()->name,
-           //     ),
-           // );
+            $params = array(
+                'transaction_details' => array(
+                    'order_id' => $eventParticipant->id,
+                    'gross_amount' => $eventParticipant->total_price,
+                ),
+                'customer_details' => array(
+                    'first_name' => auth()->user()->name,
+                ),
+            );
 
-            //$snapToken = \Midtrans\Snap::getSnapToken($params);
+            $snapToken = \Midtrans\Snap::getSnapToken($params);
 
-            //$eventParticipant->snap_token = $snapToken;
+            $eventParticipant->snap_token = $snapToken;
 
             return $eventParticipant;
         } catch (\Exception $e) {

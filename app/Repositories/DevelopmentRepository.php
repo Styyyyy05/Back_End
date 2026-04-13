@@ -22,14 +22,14 @@ class DevelopmentRepository implements DevelopmentRepositoryInterface
             }
         })->with('developmentApplicants');
 
-        //if ($status === 'my-applications') {
-        //    $query->whereHas('developmentApplicants', function ($query) {
-        //        $members = FamilyMember::where('head_of_family_id', auth()->user()->headOfFamily->id)->pluck('user_id')->toArray();
-        //        $members[] = auth()->user()->id;
-//
-        //        $query->whereIn('user_id', $members);
-        //    });
-        //}
+        if ($status === 'my-applications') {
+            $query->whereHas('developmentApplicants', function ($query) {
+                $members = FamilyMember::where('head_of_family_id', auth()->user()->headOfFamily->id)->pluck('user_id')->toArray();
+                $members[] = auth()->user()->id;
+
+                $query->whereIn('user_id', $members);
+            });
+        }
 
         $query->orderBy('created_at', 'desc');
 

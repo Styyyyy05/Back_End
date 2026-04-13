@@ -19,13 +19,13 @@ class EventRepository implements EventRepositoryInterface
             if ($search) {
                 $query->search($search);
             }
-        }); //->with('eventParticipants');
+        })->with('eventParticipants');
 
-        //if ($status === 'joined') {
-            //$query->whereHas('eventParticipants', function ($query) {
-                //$query->where('head_of_family_id', auth()->user()->headOfFamily->id);
-            //});
-        //}
+        if ($status === 'joined') {
+            $query->whereHas('eventParticipants', function ($query) {
+                $query->where('head_of_family_id', auth()->user()->headOfFamily->id);
+            });
+        }
 
         $query->orderBy('created_at', 'desc');
 
