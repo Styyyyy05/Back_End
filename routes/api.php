@@ -44,6 +44,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::apiResource('development-applicant', DevelopmentApplicantController::class);
     Route::get('development-applicant/all/paginated', [DevelopmentApplicantController::class, 'getAllPaginated']);
+    Route::patch('development-applicant/{id}/approve', [DevelopmentApplicantController::class, 'approve']);
+    Route::patch('development-applicant/{id}/reject', [DevelopmentApplicantController::class, 'reject']);
 
     Route::get('profile', [ProfileController::class, 'index']);
     Route::post('profile', [ProfileController::class, 'store']);

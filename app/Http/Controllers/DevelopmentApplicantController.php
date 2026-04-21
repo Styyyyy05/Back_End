@@ -27,7 +27,7 @@ class DevelopmentApplicantController extends Controller implements HasMiddleware
         return [
             new Middleware(PermissionMiddleware::using(['development-applicant-list|development-applicant-create|development-applicant-edit|development-applicant-delete']), only: ['index', 'getAllPaginated', 'show']),
             new Middleware(PermissionMiddleware::using(['development-applicant-create']), only: ['store']),
-            new Middleware(PermissionMiddleware::using(['development-applicant-edit']), only: ['update']),
+            new Middleware(PermissionMiddleware::using(['development-applicant-edit']), only: ['update', 'approve', 'reject']),
             new Middleware(PermissionMiddleware::using(['development-applicant-delete']), only: ['destroy']),
         ];
     }
@@ -121,6 +121,42 @@ class DevelopmentApplicantController extends Controller implements HasMiddleware
             $developmentApplicant = $this->developmentApplicantRepository->update($id, $request);
 
             return ResponseHelper::jsonResponse(true, 'Data Pendaftar Pembangunan Berhasil Diupdate', new DevelopmentApplicantResource($developmentApplicant), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
+    }
+
+    public function approve(string $id)
+    {
+        try {
+            $developmentApplicant = $this->developmentApplicantRepository->getById($id);
+
+            if (!$developmentApplicant) {
+                return ResponseHelper::jsonResponse(false, 'Data Pendaftar Pembangunan Tidak Ditemukan', null, 404);
+            }
+
+            $developmentApplicant->status = 'approved';
+            $developmentApplicant->save();
+
+            return ResponseHelper::jsonResponse(true, 'Pendaftar Pembangunan Berhasil Disetujui', new DevelopmentApplicantResource($developmentApplicant), 200);
+        } catch (\Exception $e) {
+            return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
+        }
+    }
+
+    public function reject(string $id)
+    {
+        try {
+            $developmentApplicant = $this->developmentApplicantRepository->getById($id);
+
+            if (!$developmentApplicant) {
+                return ResponseHelper::jsonResponse(false, 'Data Pendaftar Pembangunan Tidak Ditemukan', null, 404);
+            }
+
+            $developmentApplicant->status = 'rejected';
+            $developmentApplicant->save();
+
+            return ResponseHelper::jsonResponse(true, 'Pendaftar Pembangunan Berhasil Ditolak', new DevelopmentApplicantResource($developmentApplicant), 200);
         } catch (\Exception $e) {
             return ResponseHelper::jsonResponse(false, $e->getMessage(), null, 500);
         }
